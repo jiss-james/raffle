@@ -14,8 +14,7 @@ def index(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            comp = get_object_or_404(Competition)
-            comp.save()
+            form.save(commit = True)
             return HttpResponseRedirect('/thanks/')
 
         # if a GET (or any other method) we'll create a blank form
