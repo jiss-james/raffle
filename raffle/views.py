@@ -8,7 +8,7 @@ def index(request):
 
     competitions = []
     for e in Competition.objects.all():
-        competitions.append({"name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize})
+        competitions.append({"name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
 
     return render(request, 'index.html', {"competitions": competitions})
 
