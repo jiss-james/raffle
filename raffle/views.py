@@ -8,7 +8,7 @@ def index(request):
 
     competitions = []
     for e in Competition.objects.all():
-        competitions.append({"name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
+        competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
 
     return render(request, 'index.html', {"competitions": competitions})
 
@@ -30,3 +30,8 @@ def new_comp(request):
     else:
         form = CompForm()
     return render(request, 'new_comp.html',  {'form': form})
+
+
+def edit_comp(request, id):
+    form = CompForm()
+    return render(request, 'edit_comp.html', {'form': form})
