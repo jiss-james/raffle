@@ -2,15 +2,25 @@
 
 {%block content%}
 
-{% load crispy_forms_tags %}
-<div class="container">
-    <h1 class="text-center text-white">New Competition</h1>
-    <form method="POST" class="text-white">{% csrf_token %}
-        <div class="form-group">
-            {{ form | crispy }}
+<br>
+<p  class="list-group-item list-group-item-action flex-column align-items-start text-center disabled">
+  Shop Names
+</p>
+<br>
+<div class="card-deck">
+  {% for c in competitions %}
+    <a href="{% url 'index' %}">
+      <div class="card" style="width: 18rem; margin-bottom:10px;">
+        <div class="card-body">
+          <h5 class="card-title">{{ c.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted"> Fee: €{{c.fee}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted"> Prize: €{{c.prize}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted"> Start Date: {{c.sdate}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted"> End Date: {{c.edate}}</h6>
+          <p class="card-text">{{c.description}}.</p>  
         </div>
-        <button type="submit" class="save btn btn-success">Save</button>
-    </form>
+      </div>
+    </a>
+  {% endfor %}
 </div>
-
 {% endblock %}

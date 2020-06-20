@@ -8,5 +8,6 @@ admin.autodiscover()
 urlpatterns = [
 
     url(r'^$', views.index, name='index'),
+    path('new_comp', views.new_comp, name='new_comp'),
 
 ]
