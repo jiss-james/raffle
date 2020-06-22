@@ -1,6 +1,6 @@
 from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
@@ -33,5 +33,12 @@ def new_comp(request):
 
 
 def edit_comp(request, id):
-    form = CompForm()
+    #handling case where Competition doesnt exist
+    instance = get_object_or_404(Competition, comp_id=id)
+    form = CompForm(instance=instance)
+    if request.method == "POST":
+        form = CompForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
     return render(request, 'edit_comp.html', {'form': form})
+
