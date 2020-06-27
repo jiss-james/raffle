@@ -1,6 +1,6 @@
 from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
@@ -8,7 +8,7 @@ def index(request):
 
     competitions = []
     for e in Competition.objects.all():
-        competitions.append({"name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
+        competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
 
     return render(request, 'index.html', {"competitions": competitions})
 
@@ -30,3 +30,16 @@ def new_comp(request):
     else:
         form = CompForm()
     return render(request, 'new_comp.html',  {'form': form})
+
+
+def edit_comp(request, id):
+    #handling case where Competition doesnt exist
+    instance = get_object_or_404(Competition, comp_id=id)
+    form = CompForm(instance=instance)
+    if request.method == "POST":
+        form = CompForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    return render(request, 'edit_comp.html', {'form': form})
+
