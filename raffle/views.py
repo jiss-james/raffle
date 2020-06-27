@@ -40,5 +40,6 @@ def edit_comp(request, id):
         form = CompForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect('/')
     return render(request, 'edit_comp.html', {'form': form})
 
