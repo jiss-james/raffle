@@ -9,8 +9,10 @@
         <div class="form-group">
             {{ form | crispy }}
         </div>
-        <button type="submit" class="save btn btn-success">Save</button>
+        <button type="submit" class="save btn btn-success" name="save-btn">Save</button>
+        <button type="submit" class = "btn btn-danger" name="delete-btn">Delete</button>
     </form>
+    
 </div>
 
 {% endblock %}
