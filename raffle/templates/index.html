@@ -3,20 +3,20 @@
 {%block content%}
 
 <br>
-<p  class="list-group-item list-group-item-action flex-column align-items-start text-center disabled">
+<p  class="list-group-item list-group-item-dark flex-column align-items-start text-center">
   Competitions
 </p>
 <br>
 <div class="card-deck">
   {% for c in competitions %}
-  <div class="card" style="width: 18rem; margin-bottom:10px;">
+  <div class="card bg-dark text-white" style="width: 18rem; margin-bottom:10px;">
     <div class="card-header text-center">
        {{c.sdate}} - {{c.edate}}
     </div>
-    <div class="card-body">
+    <div class="card-body bg-secondary">
       <h5 class="card-title">{{ c.name }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted"> Fee: €{{c.fee}}</h6>
-      <h6 class="card-subtitle mb-2 text-muted"> Prize: €{{c.prize}}</h6>
+      <h6 class="card-subtitle mb-2"> Fee: €{{c.fee}}</h6>
+      <h6 class="card-subtitle mb-2"> Prize: €{{c.prize}}</h6>
       <p class="card-text">{{c.description}}.</p>
     </div>
     <div class="card-footer text-muted text-center ">
