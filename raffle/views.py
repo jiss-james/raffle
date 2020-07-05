@@ -33,13 +33,38 @@ def new_comp(request):
 
 
 def edit_comp(request, id):
-    #handling case where Competition doesnt exist
+    # handling case where Competition doesnt exist
     instance = get_object_or_404(Competition, comp_id=id)
     form = CompForm(instance=instance)
     if request.method == "POST":
         form = CompForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
+        # saving an edited competition
+        if 'save-btn' in request.POST:
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/')
+        # deleting an existing competition 
+        elif 'delete-btn' in request.POST:
+            Competition.objects.filter(pk=id).delete()
             return HttpResponseRedirect('/')
     return render(request, 'edit_comp.html', {'form': form})
+
+
+def enter_comp(request, id):
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = EntryForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            form.save(commit=True)
+            return HttpResponseRedirect('/')
+
+        # if a GET (or any other method) we'll create a blank form
+    else:
+        form = EntryForm()
+    return render(request, 'enter_comp.html', {'form': form})
 

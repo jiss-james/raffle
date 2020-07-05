@@ -10,14 +10,18 @@
 <div class="card-deck">
   {% for c in competitions %}
   <div class="card" style="width: 18rem; margin-bottom:10px;">
+    <div class="card-header text-center">
+       {{c.sdate}} - {{c.edate}}
+    </div>
     <div class="card-body">
       <h5 class="card-title">{{ c.name }}</h5>
       <h6 class="card-subtitle mb-2 text-muted"> Fee: €{{c.fee}}</h6>
       <h6 class="card-subtitle mb-2 text-muted"> Prize: €{{c.prize}}</h6>
-      <h6 class="card-subtitle mb-2 text-muted"> Start Date: {{c.sdate}}</h6>
-      <h6 class="card-subtitle mb-2 text-muted"> End Date: {{c.edate}}</h6>
       <p class="card-text">{{c.description}}.</p>
+    </div>
+    <div class="card-footer text-muted text-center ">
       <a href="{% url 'edit_comp' id=c.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'enter_comp' id=c.id %}" class="btn btn-primary">Enter</a>
     </div>
   </div>
   {% endfor %}
