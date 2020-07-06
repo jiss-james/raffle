@@ -8,15 +8,21 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-    if request.user.is_authenticated:
+    # if request.user.is_authenticated:
         competitions = []
         for e in Competition.objects.all():
             competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
 
         return render(request, 'index.html', {"competitions": competitions})
-    else:
-        return HttpResponseRedirect('/login')
+    # else:
+    #     return HttpResponseRedirect('/login')
 
+def logged_in(request, user):
+    competitions = []
+    for e in Competition.objects.all():
+        competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
+
+    return render(request, 'index.html', {"competitions": competitions})
 
 def new_comp(request):
 

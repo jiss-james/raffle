@@ -14,6 +14,8 @@ urlpatterns = [
     path('edit_comp/<str:id>', views.edit_comp, name='edit_comp'),
     path('enter_comp/<str:id>', views.enter_comp, name='enter_comp'),
     path('signup', views.signup, name='signup'),
+    path('<user>', views.logged_in, name='logged_in'),
     path('login/', auth_views.LoginView.as_view(template_name="registration/login.html", redirect_authenticated_user=True), name='login'),
+    
 
 ]

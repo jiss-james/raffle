@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/<user>"
 LOGOUT_REDIRECT_URL = "/"
 
 ROOT_URLCONF = 'rafflesite.urls'
