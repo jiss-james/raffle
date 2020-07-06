@@ -1,16 +1,21 @@
 from .models import *
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
 def index(request):
+    if request.user.is_authenticated:
+        competitions = []
+        for e in Competition.objects.all():
+            competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
 
-    competitions = []
-    for e in Competition.objects.all():
-        competitions.append({"id": e.comp_id, "name": e.comp_name, "description": e.description, "fee": e.entry_fee, "prize": e.prize, "sdate": e.start_date, "edate":e.end_date})
-
-    return render(request, 'index.html', {"competitions": competitions})
+        return render(request, 'index.html', {"competitions": competitions})
+    else:
+        return HttpResponseRedirect('/login')
 
 
 def new_comp(request):
@@ -68,3 +73,13 @@ def enter_comp(request, id):
         form = EntryForm()
     return render(request, 'enter_comp.html', {'form': form})
 
+def signup(response):
+    if response.method == "POST":
+        form = SignupForm(response.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    else:
+	    form = SignupForm()
+
+    return render(response, "signup.html", {"form":form})

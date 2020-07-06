@@ -1,7 +1,10 @@
 from django.db import models
+from django import forms
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from bootstrap_datepicker_plus import DatePickerInput
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -44,3 +47,11 @@ class CompForm(ModelForm):
             'end_date': DatePickerInput(format='%Y-%m-%d'),  # specify date-frmat
         }
         fields = ['comp_name', 'description', 'prize', 'entry_fee', 'start_date', 'end_date']
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField()
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    class Meta:
+        model = User
+        fields = ["first_name","last_name","username", "email", "password1", "password2"]
