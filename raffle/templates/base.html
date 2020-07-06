@@ -21,14 +21,22 @@
 
 <body>
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Raffle</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Raffle</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-    </nav>
-<div class="container-fluid">
-<!--	<br>-->
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Sign Out</a>
+          </li>
+        {% endif %}
+        </ul>
+    </div>
+</nav>
 
+<div class="container-fluid">
     {% block content %}
 
 
